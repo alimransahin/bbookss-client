@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Nabvar = () => {
-    const menuItems=[
+    const menuItems = <React.Fragment>
         <li><Link to=''>Item 1</Link></li>,
         <li><Link to=''>Item 2</Link></li>
-    ]
+    </React.Fragment>
     return (
         <div className="navbar bg-base-100">
             <div className="navbar-start">
@@ -17,7 +17,7 @@ const Nabvar = () => {
                         {menuItems}
                     </ul>
                 </div>
-                <Link to='/'><img src="https://i.ibb.co/jRVZdMJ/Screenshot-3-removebg-preview.png" alt="logo" /></Link>
+                <Link to='/'><img src="https://i.ibb.co/VNLzn9w/Screenshot-3-removebg-preview.png" alt="logo" /></Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
