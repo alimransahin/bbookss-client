@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../Context/AuthProvider';
 
 const Nabvar = () => {
     const menuItems = <React.Fragment>
         <li><Link to=''>Item 1</Link></li>,
         <li><Link to=''>Item 2</Link></li>
+        <li><Link to='/login'>Log In</Link></li>
+        <li><Link to='/signup'>Sign Up</Link></li>
     </React.Fragment>
+    const {user}=useContext(AuthContext);
     return (
         <div className="navbar bg-base-100">
             <div className="navbar-start">
@@ -25,7 +29,7 @@ const Nabvar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <Link className="btn">Get started</Link>
+                <Link className="btn">{user}</Link>
             </div>
         </div>
     );
