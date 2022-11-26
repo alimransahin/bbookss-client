@@ -1,3 +1,4 @@
+import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -5,13 +6,16 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 
 const Login = () => {
+    const { loginWithEmailPassword, googleSignIn } = useContext(AuthContext);
     const { register, handleSubmit } = useForm();
-    const {loginWithEmailPassword}=useContext(AuthContext);
     const [signUpError, setSignUpError] = useState('');
-    const handleSignIn=(data)=>{
+    const googleProvider = new GoogleAuthProvider();
+
+
+    const handleSignIn = (data) => {
         setSignUpError('');
         const { email, password } = data;
-        loginWithEmailPassword(email,password)
+        loginWithEmailPassword(email, password)
             .then(result => {
                 toast.success('Log In Successfull');
             })
@@ -23,6 +27,35 @@ const Login = () => {
             })
 
     }
+    const handleGoogle = () => {
+        googleSignIn(googleProvider)
+            .then(result => {
+                const user = result.user
+                fetch(`http://localhost:5000/users/${user.email}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.length===0) {
+                            const userInfo = {
+                                userType: 'buyer',
+                                name: user.displayName,
+                                email: user.email,
+                                img: user.photoURL
+                            }
+                            console.log(userInfo);
+                            fetch(`http://localhost:5000/users`, {
+                                method: 'POST',
+                                headers: {
+                                    'content-type': 'application/json'
+                                },
+                                body: JSON.stringify(userInfo)
+                            })
+                                .then(res => res.json())
+                                .then(data => console.log(data))
+                        }
+                    })
+            })
+            .catch(error => console.log(error))
+    }
     return (
         <div className="hero py-16 bg-base-200 mb-8">
             <div className="hero-content w-full">
@@ -32,31 +65,33 @@ const Login = () => {
                     </div>
                     <div className="card-body">
                         <form onSubmit={handleSubmit(handleSignIn)}>
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">Email</span>
-                            </label>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Email</span>
+                                </label>
                                 <input type="text" {...register('email')} placeholder="email" className="input input-bordered" />
-                        </div>
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">Password</span>
-                            </label>
+                            </div>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Password</span>
+                                </label>
                                 <input type="password" {...register('password')} placeholder="password" className="input input-bordered" />
-                            <label className="label">
+                                <label className="label">
                                     {signUpError && <p className='text-red-600'>{signUpError}</p>}
-                                <Link href="#" className="label-text-alt link link-hover">Forgot password?</Link>
+                                    <Link href="#" className="label-text-alt link link-hover">Forgot password?</Link>
 
-                            </label>
-                        </div>
-                        <div className="form-control">
+                                </label>
+                            </div>
+                            <div className="form-control">
                                 <input className='btn btn-primary w-full mt-4' value="Log In" type="submit" />
-                        </div>
+                            </div>
                         </form>
                     </div>
-                </div>
+                    <div className="divider">OR</div>
+                    <button onClick={handleGoogle} className='btn btn-ghost btn-outline w-full mt-4'>Google Sign In</button>
                 </div>
             </div>
+        </div>
     );
 };
 
