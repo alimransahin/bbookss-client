@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../Context/AuthProvider';
@@ -133,11 +132,10 @@ const SignUp = () => {
                                 {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
                                 <label className="label">
                                     {signUpError && <p className='text-red-600'>{signUpError}</p>}
-                                    <Link to="#" className="label-text-alt link link-hover">Forgot password?</Link>
                                 </label>
 
                             </div>
-                            <div className="form-control mt-6">
+                            <div className="form-control">
                                 <input className='btn btn-primary w-full mt-4' value="Sign Up" type="submit" />
                             </div>
                         </form>
