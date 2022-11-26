@@ -17,10 +17,10 @@ const Banner = () => {
             <div className="carousel w-full">
                 {
                     categories.map((category, i) => <div key={category._id} id={i} className="carousel-item relative w-full max-h-96">
-                        <img src={category.img} className="w-full" />
+                        <img src={category.img} className="w-full" alt='img' />
                         <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                            <a href={`#${i-1}`} className="btn btn-circle">❮</a>
-                            <a href={`#${i + 1}`} className="btn btn-circle">❯</a>
+                            <Link to={`#${i-1}`} className="btn btn-circle">❮</Link>
+                            <Link to={`#${i + 1}`} className="btn btn-circle">❯</Link>
                         </div>
                     </div>
                     )
