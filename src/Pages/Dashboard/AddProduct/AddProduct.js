@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthProvider';
 import Loading from '../../Shared/Loading/Loading';
 
@@ -8,9 +9,11 @@ import Loading from '../../Shared/Loading/Loading';
 const AddProduct = () => {
     const { user, loading, setLoading } = useContext(AuthContext);
     const { register, handleSubmit } = useForm();
-
-
     const [categories, setCategories] = useState([]);
+    const [users, setUsers] = useState([]);
+    const navigate = useNavigate();
+
+
     useEffect(() => {
         setLoading(true);
 
@@ -22,7 +25,6 @@ const AddProduct = () => {
             })
     }, [setCategories, setLoading])
 
-    const [users, setUsers] = useState([]);
     useEffect(() => {
         setLoading(true);
         fetch(`http://localhost:5000/users/${user?.email}`)
@@ -33,15 +35,8 @@ const AddProduct = () => {
             })
     }, [setUsers, setLoading, user])
 
-console.log(users);
     const handleAddBook = data => {
-
-        console.log(data);
-        console.log(users);
-        console.log(categories);
-
         const imgHostKey = process.env.REACT_APP_imagebb_key;
-
         const { bookName, category, condition, description, img, orginalPrice, resalePrice, purchasedyear } = data;
         const image = img[0];
         setLoading(true);
@@ -58,16 +53,16 @@ console.log(users);
                 if (imageInfo.success) {
                     const image = imageInfo.data.url;
                     const booksInfo = {
-                        bookName, 
-                        condition, 
-                        description, 
-                        orginalPrice, 
-                        resalePrice, 
+                        bookName,
+                        condition,
+                        description,
+                        orginalPrice,
+                        resalePrice,
                         purchasedyear,
-                        categoryId: category, 
+                        categoryId: category,
                         img: image,
-                        sellerId: users._id
-                        
+                        sellerEmail: users.email
+
                     }
                     console.log(booksInfo);
                     fetch(`http://localhost:5000/addproducts`, {
@@ -78,7 +73,10 @@ console.log(users);
                         body: JSON.stringify(booksInfo)
                     })
                         .then(res => res.json())
-                        .then(data => toast.success('product addedd successfull'))
+                        .then(data => {
+                            toast.success('product addedd successfull');
+                            navigate('myproducts');
+                        })
 
                 }
             })
