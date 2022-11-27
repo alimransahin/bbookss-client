@@ -79,7 +79,7 @@ const Login = () => {
                                 <label className="label">
                                     <span className="label-text">Email</span>
                                 </label>
-                                <input type="text" {...register('email')} placeholder="email" className="input input-bordered" />
+                                <input type="email" {...register('email')} placeholder="email" className="input input-bordered" />
                             </div>
                             <div className="form-control">
                                 <label className="label">
