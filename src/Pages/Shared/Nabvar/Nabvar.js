@@ -3,13 +3,16 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthProvider';
 
 const Nabvar = () => {
+    const { user } = useContext(AuthContext);
     const menuItems = <React.Fragment>
         <li><Link to=''>Item 1</Link></li>,
-        <li><Link to=''>Item 2</Link></li>
-        <li><Link to='/login'>Log In</Link></li>
-        <li><Link to='/signup'>Sign Up</Link></li>
+        <li><Link to=''>Item 2</Link></li>,
+        {
+            user?.img &&
+            <li><Link to='/dashboard'>Dashboard</Link></li>
+        }
+
     </React.Fragment>
-    const {user}=useContext(AuthContext);
     return (
         <div className="navbar bg-base-100">
             <div className="navbar-start">
@@ -29,7 +32,25 @@ const Nabvar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <Link className="btn">{user}</Link>
+                {
+                    user?.img && <div className="avatar mr-4">
+                        <div className="w-8 rounded">
+                            <img src={user?.img} alt="profile pic" />
+                        </div>
+                    </div>
+                }
+
+                <ul className="menu menu-horizontal p-0">
+                    {
+                        user?._id ?
+                            <li><Link to='/'>Log Out</Link></li>
+                            :
+                            <>
+                                <li><Link to='/login'>Log In</Link></li>
+                                <li><Link to='/signup'>Sign Up</Link></li>
+                            </>
+                    }
+                </ul>
             </div>
         </div>
     );
