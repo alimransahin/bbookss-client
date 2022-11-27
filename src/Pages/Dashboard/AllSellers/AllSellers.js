@@ -29,7 +29,7 @@ const AllSellers = () => {
         })
             .then(res => res.json())
             .then(data => {
-                if (data.deletedCount > 0) {
+                if (data.modifiedCount > 0) {
                     toast.success("Make Admin Successfull")
                     refetch();
                 }
@@ -41,7 +41,7 @@ const AllSellers = () => {
         })
             .then(res => res.json())
             .then(data => {
-                if (data.deletedCount > 0) {
+                if (data.modifiedCount > 0) {
                     toast.success("Seller verify Successfull")
                     refetch();
                 }
