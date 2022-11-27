@@ -11,7 +11,6 @@ const AllSellers = () => {
             return result;
         }
     });
-
     const handleUserDelete = (id) => {
         fetch(`http://localhost:5000/allusers/delete/${id}`, {
             method: 'DELETE'
@@ -19,8 +18,32 @@ const AllSellers = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.deletedCount > 0) {
-                    toast.success("User Delete Successfull")
-                    refetch()
+                    toast.success("User Delete Successfull");
+                    refetch();
+                }
+            })
+    }
+    const handleMakeAdmin = (id) => {
+        fetch(`http://localhost:5000/allusers/makeadmin/${id}`, {
+            method: 'PUT'
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    toast.success("Make Admin Successfull")
+                    refetch();
+                }
+            })
+    }
+    const handleVerify = (id) => {
+        fetch(`http://localhost:5000/allusers/verify/${id}`, {
+            method: 'PUT'
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    toast.success("Seller verify Successfull")
+                    refetch();
                 }
             })
     }
@@ -37,6 +60,8 @@ const AllSellers = () => {
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone</th>
+                                    <th>Make Admin</th>
+                                    <th>Verify User</th>
                                     <th>action</th>
                                 </tr>
                             </thead>
@@ -60,7 +85,16 @@ const AllSellers = () => {
                                         <td>{buyer.email}</td>
                                         <td>{buyer.phone}</td>
                                         <th>
-                                            <button on onClick={() => handleUserDelete(buyer._id)} className="btn btn-error btn-xs">Delete</button>
+                                            <button onClick={() => handleMakeAdmin(buyer._id)} className="btn btn-info btn-xs m-3">Make Admin</button>
+                                        </th>
+                                        <th>
+                                            {
+                                                buyer?.status === "Verified" ? <span className="">Verified</span>:
+                                                <button onClick={() => handleVerify(buyer._id)} className="btn btn-info btn-xs m-3">Verify Seller</button>
+                                            }
+                                        </th>
+                                        <th>
+                                            <button onClick={() => handleUserDelete(buyer._id)} className="btn btn-error btn-xs m-3">Delete</button>
                                         </th>
                                     </tr>
                                     )

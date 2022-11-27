@@ -13,6 +13,7 @@ import MyProducts from '../../Pages/Dashboard/MyProducts/MyProducts';
 import ReportedItems from '../../Pages/Dashboard/ReportedItems/ReportedItems';
 import Home from '../../Pages/Home/Home/Home';
 import Login from '../../Pages/Login/Login';
+import ErrorPage from '../../Pages/Shared/ErrorPage/ErrorPage';
 import Welcome from '../../Pages/Shared/Welcome/Welcome';
 import SignUp from '../../Pages/SignUp/SignUp';
 
@@ -76,6 +77,10 @@ const router=createBrowserRouter([
                 element:<ReportedItems></ReportedItems>
             },
         ]
+    },
+    {
+        path:'/*',
+        element:<ErrorPage></ErrorPage>
     }
 ])
 

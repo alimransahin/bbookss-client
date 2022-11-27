@@ -2,10 +2,12 @@ import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../Context/AuthProvider';
+import Loading from '../Shared/Loading/Loading';
+import { Navigate } from 'react-router-dom';
 
 const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { signUpWithEmailPassword } = useContext(AuthContext);
+    const { signUpWithEmailPassword, setLoading, loading } = useContext(AuthContext);
     const [signUpError, setSignUpError] = useState('');
     const imgHostKey = process.env.REACT_APP_imagebb_key;
 
@@ -16,6 +18,7 @@ const SignUp = () => {
         signUpWithEmailPassword(email, password)
             .then(result => {
                 toast.success('Sign Up Successfull');
+                setLoading(true);
                 const formData = new FormData();
                 formData.append('image', image);
                 const url = `https://api.imgbb.com/1/upload?key=${imgHostKey}`
@@ -25,6 +28,7 @@ const SignUp = () => {
                 })
                     .then(res => res.json())
                     .then(imageInfo => {
+                        setLoading(false);
                         if (imageInfo.success) {
                             const image = imageInfo.data.url;
                             const userInfo = {
@@ -56,6 +60,9 @@ const SignUp = () => {
                 toast.error('Sign Up Failed')
             })
 
+    }
+    if(loading){
+        return <Loading></Loading>
     }
     return (
         <div className="hero min-h-screen bg-base-200 mb-8">
