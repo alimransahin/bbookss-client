@@ -8,23 +8,33 @@ import { AuthContext } from '../../Context/AuthProvider';
 const Login = () => {
     const { loginWithEmailPassword, googleSignIn } = useContext(AuthContext);
     const { register, handleSubmit } = useForm();
-    const [signUpError, setSignUpError] = useState('');
+    const [signInError, setSignInError] = useState('');
     const googleProvider = new GoogleAuthProvider();
 
 
     const handleSignIn = (data) => {
-        setSignUpError('');
+        setSignInError('');
         const { email, password } = data;
-        loginWithEmailPassword(email, password)
-            .then(result => {
-                toast.success('Log In Successfull');
-            })
-            .catch(err => {
-                const message = err.message;
-                const sub = message.substring(message.indexOf('/') + 1, message.indexOf(')'));
-                setSignUpError(sub);
-                toast.error('Log In Failed')
-            })
+        fetch(`http://localhost:5000/users/${email}`)
+        .then(res=>res.json())
+        .then(result=>{
+            if(result.length>0){
+                loginWithEmailPassword(email, password)
+                    .then(result => {
+                        toast.success('Log In Successfull');
+                    })
+                    .catch(err => {
+                        const message = err.message;
+                        const sub = message.substring(message.indexOf('/') + 1, message.indexOf(')'));
+                        setSignInError(sub);
+                        toast.error('Log In Failed')
+                    })
+            }
+            else{
+                setSignInError("User Email Not Found");
+            }
+        })
+        
 
     }
     const handleGoogle = () => {
@@ -77,7 +87,7 @@ const Login = () => {
                                 </label>
                                 <input type="password" {...register('password')} placeholder="password" className="input input-bordered" />
                                 <label className="label">
-                                    {signUpError && <p className='text-red-600'>{signUpError}</p>}
+                                    {signInError && <p className='text-red-600'>{signInError}</p>}
                                     <Link href="#" className="label-text-alt link link-hover">Forgot password?</Link>
 
                                 </label>

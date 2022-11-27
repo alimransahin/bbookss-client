@@ -3,12 +3,19 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthProvider';
 
 const Nabvar = () => {
-    const { user } = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
+
+    const handleLogOut=()=>{
+        logOut()
+        .then(()=>{})
+        .catch(err=>console.log(err))
+    }
+
     const menuItems = <React.Fragment>
         <li><Link to=''>Item 1</Link></li>,
         <li><Link to=''>Item 2</Link></li>,
         {
-            user?.img &&
+            user?.email &&
             <li><Link to='/dashboard'>Dashboard</Link></li>
         }
 
@@ -32,18 +39,13 @@ const Nabvar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                {
-                    user?.img && <div className="avatar mr-4">
-                        <div className="w-8 rounded">
-                            <img src={user?.img} alt="profile pic" />
-                        </div>
-                    </div>
-                }
-
                 <ul className="menu menu-horizontal p-0">
                     {
-                        user?._id ?
-                            <li><Link to='/'>Log Out</Link></li>
+                        user?.email ?
+                            <>
+                                <li><Link to='/'>{user?.displayName !== null ? user.displayName : user.email}</Link></li>
+                                <li><button onClick={handleLogOut}>Log Out</button></li>
+                            </>
                             :
                             <>
                                 <li><Link to='/login'>Log In</Link></li>
