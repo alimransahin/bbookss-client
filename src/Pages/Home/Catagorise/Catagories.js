@@ -18,7 +18,7 @@ const Catagories = () => {
             {
                     categories.map(category => 
                     <div key={category._id} className="card bg-base-100 shadow-xl">
-                            <Link to={`http://localhost:5000/categories/${category._id}`}>
+                            <Link to={`/categories/${category._id}`}>
                         <figure className="px-10 pt-10">
                             <img src={category.img} alt="img" className="rounded-xl" />
                         </figure>

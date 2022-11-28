@@ -14,7 +14,7 @@ const AdvertisedItems = () => {
     return (
         <div>
             <h1 className='text-4xl font-semibold text-center p-2 my-6  bg-indigo-700 text-white'>Advertised Items</h1>
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4'>
+            <div className='grid my-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4'>
             {
                 advertisedBooks?.map(book =><CardDetails key={book._id} book={book}></CardDetails>)
             }

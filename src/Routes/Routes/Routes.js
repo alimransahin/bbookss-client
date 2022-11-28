@@ -3,6 +3,7 @@ import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import DashboardLayout from '../../Layout/DashboardLayout';
 import Main from '../../Layout/Main';
+import AllProducts from '../../Pages/AllProduct/AllProducts';
 import AddProduct from '../../Pages/Dashboard/AddProduct/AddProduct';
 import AllAdmins from '../../Pages/Dashboard/AllAdmins/AllAdmins';
 import AllBuyers from '../../Pages/Dashboard/AllBuyers/AllBuyers';
@@ -25,6 +26,11 @@ const router=createBrowserRouter([
             {
                 path:'/',
                 element:<Home></Home>
+            },
+            {
+                path:'/categories/:id',
+                element:<AllProducts></AllProducts>,
+                loader: ({ params }) => fetch(`http://localhost:5000/category/${params.id}`)
             },
             {
                 path:'/login',
