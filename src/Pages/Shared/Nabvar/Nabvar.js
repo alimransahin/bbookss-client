@@ -12,8 +12,8 @@ const Nabvar = () => {
     }
 
     const menuItems = <React.Fragment>
-        <li><Link to=''>Item 1</Link></li>,
-        <li><Link to=''>Item 2</Link></li>,
+        <li><Link to='/'>Home</Link></li>,
+        <li><Link to='/blog'>Blog</Link></li>,
         {
             user?.email &&
             <li><Link to='/dashboard'>Dashboard</Link></li>
