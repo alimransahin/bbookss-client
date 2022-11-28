@@ -7,11 +7,10 @@ const CardDetails = ({book}) => {
     const [seller, setSeller] = useState([]);
     useEffect(() => {
         setLoading(true);
-        fetch(`http://localhost:5000/users/${book?.sellerEmail}`)
+        fetch(`https://bbookss-server.vercel.app/users/${book?.sellerEmail}`)
             .then(res => res.json())
             .then(data => {
                 setSeller(data[0]);
-                console.log(data[0]);
                 setLoading(false);
             })
     }, [setSeller, setLoading, book])
@@ -31,11 +30,15 @@ const CardDetails = ({book}) => {
                 <p className='text-lg'>Seller Location:{book.sellerAddress}</p>
                 <p className='text-lg'>Years of Use:{book.perchedYear}</p>
                 <p className='text-lg'><small>Posts time:{ }</small></p>
-                <p className='text-3xl font-bold'>Seller:{seller.name} {seller?.status === 'Verified' && <img className='h-4 w-4 inline-block' src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Eo_circle_light-blue_checkmark.svg" alt="" /> }</p>
+                <p className='text-3xl font-bold'>Seller:{seller?.name} {seller?.status === 'Verified' && <img className='h-4 w-4 inline-block' src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Eo_circle_light-blue_checkmark.svg" alt="" /> }</p>
                 <div className="card-actions">
-                    <button className="btn btn-primary">Buy Now</button>
+                    <label htmlFor="buyBooks"  className="btn btn-primary">Buy Now</label>
                 </div>
             </div>
+           
+
+
+
         </div>
     )
 };

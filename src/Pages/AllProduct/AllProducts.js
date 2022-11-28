@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useLoaderData } from 'react-router-dom';
+import { AuthContext } from '../../Context/AuthProvider';
 import CardDetails from '../Shared/CardDetails/CardDetails';
+import Loading from '../Shared/Loading/Loading';
 
 const AllProducts = () => {
+    const {loading}=useContext(AuthContext)
     const booksByCategory =useLoaderData();
     console.log(booksByCategory);
+    if (loading){
+        return <Loading></Loading>
+    }
     return (
         <div>
             {

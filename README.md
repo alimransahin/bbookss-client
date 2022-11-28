@@ -1,3 +1,33 @@
+# admin email,password
+email= mdalimransahin@gmail.compact
+password: Al000-
+
+# live site
+https://bbookss-55d9e.web.app/
+
+# featcher
+1. user can signup by email, password
+2. user can login by email password or google signin
+3. without log a user can show only home page. other page is private page.
+4. There are 3 types of user. admin, buyer, seller.
+5. There dashboard depended on there account type.
+6. admin can delete or verify a seller.
+7. admin can make admin from seller.
+8. seller can add there product.
+9. Buyer can buy product.
+
+# Technology
+
+react
+react router dom
+firebase
+javascript
+react toast
+express
+cors
+mongoDB
+jwt
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

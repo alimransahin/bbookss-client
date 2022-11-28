@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Banner = () => {
     const [categories, setCategories] = useState([]);
     useEffect(() => {
-        Axios.get(`http://localhost:5000/categories`)
+        Axios.get(`https://bbookss-server.vercel.app/categories`)
             .then(data => {
                 setCategories(data.data);
             })

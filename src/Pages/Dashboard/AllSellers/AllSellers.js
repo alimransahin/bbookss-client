@@ -1,18 +1,21 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
+import { AuthContext } from '../../../Context/AuthProvider';
+import Loading from '../../Shared/Loading/Loading';
 
 const AllSellers = () => {
+    const {loading}=useContext(AuthContext);
     const { data: allSellers = [], refetch } = useQuery({
         queryKey: ['allSellers'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/allusers/seller`);
+            const res = await fetch(`https://bbookss-server.vercel.app/allusers/seller`);
             const result = await res.json();
             return result;
         }
     });
     const handleUserDelete = (id) => {
-        fetch(`http://localhost:5000/allusers/delete/${id}`, {
+        fetch(`https://bbookss-server.vercel.app/allusers/delete/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
@@ -24,7 +27,7 @@ const AllSellers = () => {
             })
     }
     const handleMakeAdmin = (id) => {
-        fetch(`http://localhost:5000/allusers/makeadmin/${id}`, {
+        fetch(`https://bbookss-server.vercel.app/allusers/makeadmin/${id}`, {
             method: 'PUT'
         })
             .then(res => res.json())
@@ -36,7 +39,7 @@ const AllSellers = () => {
             })
     }
     const handleVerify = (id) => {
-        fetch(`http://localhost:5000/allusers/verify/${id}`, {
+        fetch(`https://bbookss-server.vercel.app/allusers/verify/${id}`, {
             method: 'PUT'
         })
             .then(res => res.json())
@@ -46,6 +49,9 @@ const AllSellers = () => {
                     refetch();
                 }
             })
+    }
+    if (loading){
+        return <Loading></Loading>
     }
 
     return (

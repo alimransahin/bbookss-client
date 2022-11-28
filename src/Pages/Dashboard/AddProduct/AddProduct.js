@@ -17,7 +17,7 @@ const AddProduct = () => {
     useEffect(() => {
         setLoading(true);
 
-        fetch(`http://localhost:5000/categories`)
+        fetch(`https://bbookss-server.vercel.app/categories`)
             .then(res => res.json())
             .then(data => {
                 setCategories(data);
@@ -27,7 +27,7 @@ const AddProduct = () => {
 
     useEffect(() => {
         setLoading(true);
-        fetch(`http://localhost:5000/users/${user?.email}`)
+        fetch(`https://bbookss-server.vercel.app/users/${user?.email}`)
             .then(res => res.json())
             .then(data => {
                 setUsers(data[0]);
@@ -65,7 +65,7 @@ const AddProduct = () => {
 
                     }
                     console.log(booksInfo);
-                    fetch(`http://localhost:5000/addproducts`, {
+                    fetch(`https://bbookss-server.vercel.app/addproducts`, {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json'

@@ -1,17 +1,22 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
+import { AuthContext } from '../../../Context/AuthProvider';
+import Loading from '../../Shared/Loading/Loading';
 
 const AllAdmins = () => {
+    const {loading}=useContext(AuthContext);
     const { data: allAdmins = [], refetch } = useQuery({
         queryKey: ['allAdmins'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/allusers/admin`);
+            const res = await fetch(`https://bbookss-server.vercel.app/allusers/admin`);
             const result = await res.json();
             return result;
         }
     });
-
+    if(loading){
+        return <Loading></Loading>
+    }
     return (
         <div>
             {

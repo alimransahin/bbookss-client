@@ -1,19 +1,22 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
+import { AuthContext } from '../../../Context/AuthProvider';
+import Loading from '../../Shared/Loading/Loading';
 
 const AllBuyers = () => {
+    const {loading}=useContext(AuthContext);
     const { data: allbuyers = [], refetch } = useQuery({
         queryKey: ['allbuyers'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/allusers/buyer`);
+            const res = await fetch(`https://bbookss-server.vercel.app/allusers/buyer`);
             const result = await res.json();
             return result;
         }
     });
 
     const handleUserDelete=(id)=>{
-        fetch(`http://localhost:5000/allusers/delete/${id}`,{
+        fetch(`https://bbookss-server.vercel.app/allusers/delete/${id}`,{
             method:'DELETE'
         })
         .then(res=>res.json())
@@ -24,7 +27,9 @@ const AllBuyers = () => {
             }
         })
     }
-
+    if(loading){
+        return<Loading></Loading>
+    }
     return (
         <div>
             {

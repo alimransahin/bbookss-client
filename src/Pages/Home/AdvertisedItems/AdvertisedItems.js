@@ -3,10 +3,10 @@ import React from 'react';
 import CardDetails from '../../Shared/CardDetails/CardDetails';
 
 const AdvertisedItems = () => {
-    const { data: advertisedBooks = [], refetch } = useQuery({
+    const { data: advertisedBooks = [] } = useQuery({
         queryKey: ['advertisedBooks'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/myProducts/advertise`);
+            const res = await fetch(`https://bbookss-server.vercel.app/myProducts/advertise`);
             const result = await res.json();
             return result;
         }

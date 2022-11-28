@@ -10,14 +10,14 @@ const MyProducts = () => {
     const { data: myProducts = [], refetch } = useQuery({
         queryKey: ['myProducts'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/myProducts/${user?.email}`);
+            const res = await fetch(`https://bbookss-server.vercel.app/myProducts/${user?.email}`);
             const result = await res.json();
             return result;
         }
     });
 
     const handleBookDelete = (id) => {
-        fetch(`http://localhost:5000/products/delete/${id}`, {
+        fetch(`https://bbookss-server.vercel.app/products/delete/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
@@ -30,7 +30,7 @@ const MyProducts = () => {
     }
     const handleAdvertise = (id) => {
         console.log('handleAdvertise');
-        fetch(`http://localhost:5000/myProducts/advertise/${id}`, {
+        fetch(`https://bbookss-server.vercel.app/myProducts/advertise/${id}`, {
             method: 'PUT'
         })
             .then(res => res.json())

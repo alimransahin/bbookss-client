@@ -15,7 +15,7 @@ const Login = () => {
     const handleSignIn = (data) => {
         setSignInError('');
         const { email, password } = data;
-        fetch(`http://localhost:5000/users/${email}`)
+        fetch(`https://bbookss-server.vercel.app/users/${email}`)
         .then(res=>res.json())
         .then(result=>{
             if(result.length>0){
@@ -41,7 +41,7 @@ const Login = () => {
         googleSignIn(googleProvider)
             .then(result => {
                 const user = result.user
-                fetch(`http://localhost:5000/users/${user.email}`)
+                fetch(`https://bbookss-server.vercel.app/users/${user.email}`)
                     .then(res => res.json())
                     .then(data => {
                         if (data.length===0) {
@@ -52,7 +52,7 @@ const Login = () => {
                                 img: user.photoURL
                             }
                             console.log(userInfo);
-                            fetch(`http://localhost:5000/users`, {
+                            fetch(`https://bbookss-server.vercel.app/users`, {
                                 method: 'POST',
                                 headers: {
                                     'content-type': 'application/json'

@@ -18,6 +18,10 @@ import Login from '../../Pages/Login/Login';
 import ErrorPage from '../../Pages/Shared/ErrorPage/ErrorPage';
 import Welcome from '../../Pages/Shared/Welcome/Welcome';
 import SignUp from '../../Pages/SignUp/SignUp';
+import AdminRoutes from '../AdminRoutes/AdminRoutes';
+import BuyerRoutes from '../BuyerRoutes/BuyerRoutes';
+import PrivateRoutes from '../PrivateRoutes/PrivateRoutes';
+import SellerRoutes from '../SellerRoutes/SellerRoutes';
 
 const router=createBrowserRouter([
     {
@@ -34,8 +38,8 @@ const router=createBrowserRouter([
             },
             {
                 path:'/categories/:id',
-                element:<AllProducts></AllProducts>,
-                loader: ({ params }) => fetch(`http://localhost:5000/category/${params.id}`)
+                element: <PrivateRoutes><AllProducts></AllProducts></PrivateRoutes> ,
+                loader: ({ params }) => fetch(`https://bbookss-server.vercel.app/category/${params.id}`)
             },
             {
                 path:'/login',
@@ -53,39 +57,39 @@ const router=createBrowserRouter([
         children:[
             {
                 path:'/dashboard',
-                element:<Welcome></Welcome>
+                element: <PrivateRoutes><Welcome></Welcome></PrivateRoutes>
             },
             {
                 path:'myorders',
-                element:<MyOrder></MyOrder>
+                element: <BuyerRoutes><MyOrder></MyOrder></BuyerRoutes>
             },
             {
                 path:'addproduct',
-                element:<AddProduct></AddProduct>
+                element: <SellerRoutes><AddProduct></AddProduct></SellerRoutes>
             },
             {
                 path:'myproducts',
-                element:<MyProducts></MyProducts>
+                element: <SellerRoutes><MyProducts></MyProducts></SellerRoutes>
             },
             {
                 path:'mybuyers',
-                element:<MyBuyers></MyBuyers>
+                element: <SellerRoutes><MyBuyers></MyBuyers></SellerRoutes>
             },
             {
                 path:'alladmins',
-                element:<AllAdmins></AllAdmins>
+                element: <AdminRoutes><AllAdmins></AllAdmins></AdminRoutes>
             },
             {
                 path:'allsellers',
-                element:<AllSellers></AllSellers>
+                element:<AdminRoutes> <AllSellers></AllSellers></AdminRoutes>
             },
             {
                 path:'allbuyers',
-                element:<AllBuyers></AllBuyers>
+                element: <AdminRoutes><AllBuyers></AllBuyers></AdminRoutes>
             },
             {
                 path:'reporteditems',
-                element:<ReportedItems></ReportedItems>
+                element: <AdminRoutes><ReportedItems></ReportedItems></AdminRoutes>
             },
         ]
     },

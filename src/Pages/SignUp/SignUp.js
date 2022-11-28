@@ -40,7 +40,7 @@ const SignUp = () => {
                                 address: address
                             }
                             console.log(userType, name, email, phone, image, address, password);
-                            fetch(`http://localhost:5000/users`, {
+                            fetch(`https://bbookss-server.vercel.app/users`, {
                                 method: 'POST',
                                 headers: {
                                     'content-type': 'application/json'
